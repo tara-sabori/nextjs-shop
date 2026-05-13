@@ -1,0 +1,16 @@
+import axios from "axios";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+const app = axios.create({
+  baseURL: BASE_URL,
+  withCredentials: true,
+});
+
+const api = {
+  get: app.get,
+  post: app.post,
+  put: app.put,
+  patch: app.patch,
+  delete: app.delete,
+};
+
+export default api;

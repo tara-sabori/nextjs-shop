@@ -39,6 +39,11 @@
   --color-background: #f8f8f8;
 }
 
+@layer components{
+  .mygradient{
+    @apply bg-linear-to-l from-primary-600 to-blue-950 text-transparent bg-clip-text
+  }
+}
 
 /* @media (prefers-color-scheme: dark) {
   :root {

@@ -43,6 +43,12 @@
   .mygradient{
     @apply bg-linear-to-l from-primary-600 to-blue-950 text-transparent bg-clip-text
   }
+  .bgGradient{
+    @apply bg-linear-to-l from-primary-900 to-blue-950
+  }
+  .container{
+    @apply max-w-300! mx-auto
+  }
 }
 
 /* @media (prefers-color-scheme: dark) {

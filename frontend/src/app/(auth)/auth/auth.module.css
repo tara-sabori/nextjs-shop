@@ -1,0 +1,45 @@
+.authWrapper {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  background-color: rgb(243 244 246);
+}
+.left {
+  height: 100dvh;
+  background: linear-gradient(270deg, #ff5f6d, #ffc371, #47c6ff, #6a11cb);
+  background-size: 600% 600%;
+  animation: gradientMove 10s ease infinite;
+  border-top-right-radius: 200px;
+  border-bottom-right-radius: 700px;
+}
+.right {
+  height: 100dvh;
+}
+@media screen and (min-width: 500px) {
+  .left {
+    width: 60%;
+  }
+  .right {
+  width: 50%;
+  }
+}
+@media screen and (max-width: 499px) {
+  .left {
+    width: 90%;
+  }
+  .right {
+    width: 20%;
+  }
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

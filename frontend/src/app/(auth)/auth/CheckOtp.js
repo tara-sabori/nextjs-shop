@@ -6,8 +6,10 @@ import api from "@/services/api";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import SubmitButton from "@/components/SubmitButton";
+import { useAuth } from "@/context/AuthContext";
 
 export const CheckOtp = ({ phone, setStep }) => {
+  const { dispatch } = useAuth();
   const router = useRouter();
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [time, setTime] = useState(90);
@@ -53,9 +55,10 @@ export const CheckOtp = ({ phone, setStep }) => {
       const role = data?.data?.user?.role;
       const isActive = data?.data?.user?.isActive;
       toast.success(data?.data?.message);
-      if (!isActive) router.push("/auth/complete-profile");
-      else if (role === "ADMIN") router.push("/admin");
-      else if (role === "USER") router.push("/profile");
+      dispatch({ type: "getUser", payload: data?.data });
+      if (!isActive) router.replace("/auth/complete-profile");
+      else if (role === "ADMIN") router.replace("/admin");
+      else if (role === "USER") router.replace("/profile");
     } catch (error) {
       toast.error(error?.response?.data?.message || "مشکلی رخ داده است.");
       console.log(error?.response?.data?.message);

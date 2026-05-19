@@ -41,7 +41,7 @@ const GetOtp = ({ setStep, phone, setPhone }) => {
         inputMode="numeric"
         className="border border-secondary-300 text-base my-3 rounded-lg w-full p-1.5 outline-none placeholder:text-sm"
       />
-      <SubmitButton disabled={isLoading || phone?.length != 11}>
+      <SubmitButton disabled={isLoading || phone?.length !== 11}>
         <span>ورود</span>
       </SubmitButton>
     </form>

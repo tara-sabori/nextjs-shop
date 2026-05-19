@@ -44,6 +44,7 @@ export const CheckOtp = ({ phone, setStep }) => {
   };
   const checkOtpHandler = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     const formData = {
       phoneNumber: phone,
       otp: otp.join(""),
@@ -51,7 +52,7 @@ export const CheckOtp = ({ phone, setStep }) => {
     console.log(formData);
     try {
       const { data } = await api.post("/user/check-otp", formData);
-      console.log(data);
+      console.log(data?.data);
       const role = data?.data?.user?.role;
       const isActive = data?.data?.user?.isActive;
       toast.success(data?.data?.message);

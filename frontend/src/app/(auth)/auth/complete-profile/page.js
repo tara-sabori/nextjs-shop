@@ -22,7 +22,7 @@ const CompleteProfilePage = () => {
     try {
       const { data } = await api.post("/user/complete-profile", myData);
       console.log(data?.data);
-      router.push("/profile");
+      router.replace("/profile");
       dispatch({ type: "getUser", payload: data?.data });
     } catch (error) {
       console.log(error);

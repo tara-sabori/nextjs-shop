@@ -4,7 +4,7 @@ const SubmitButton = ({ children, disabled }) => {
   return (
     <button
       type="submit"
-      className="text-white w-full p-1.5 mt-2 rounded-lg bg-linear-to-l from-primary-900 to-blue-950 disabled:bg-secondary-500 cursor-pointer disabled:cursor-not-allowed text-sm"
+      className="text-white w-full p-1.5 mt-2 rounded-lg bgGradient disabled:from-secondary-400 disabled:to-secondary-800 cursor-pointer disabled:cursor-not-allowed text-sm"
       disabled={disabled}
     >
       {children}

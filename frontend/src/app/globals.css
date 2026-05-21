@@ -49,6 +49,15 @@
   .container{
     @apply max-w-300! mx-auto
   }
+  .table__th {
+    @apply border-b-2 border-b-gray-200 bg-secondary-100 font-medium p-3 pr-8 pb-3 text-right;
+  }
+  .table__tr{
+    @apply odd:bg-primary-50 border-b border-secondary-100 last:border-none
+  }
+  .table__td {
+    @apply text-right py-10;
+  }
 }
 
 /* @media (prefers-color-scheme: dark) {

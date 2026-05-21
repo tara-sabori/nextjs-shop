@@ -7,15 +7,25 @@ const AuthContext = createContext();
 
 const initialState = {
   user: null,
+  cart:null,
+  payments:null,
   isLoading: true,
   isLoggedIn: false,
   error: null,
 };
 const authReducer = (state, action) => {
   switch (action?.type) {
+    case "loading":
+      return {
+        ...state,
+        isLoading: true,
+      };
+
     case "getUser":
       return {
-        user: action?.payload,
+        user: action?.payload?.user,
+        cart: action?.payload?.cart,
+        payments: action?.payload?.payments,
         isLoading: false,
         isLoggedIn: true,
         error: null,
@@ -25,6 +35,8 @@ const authReducer = (state, action) => {
       return {
         ...state,
         user: null,
+        cart: null,
+        payments: null,
         isLoading: false,
         isLoggedIn: false,
       };
@@ -44,9 +56,10 @@ export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
   useEffect(() => {
     const getUserProfile = async () => {
+      // dispatch({ type: "loading" });
       try {
         const { data } = await api.get("/user/profile");
-        console.log(data);
+        console.log(data?.data);
         dispatch({ type: "getUser", payload: data?.data });
       } catch (error) {
         console.log(error?.response);
@@ -59,6 +72,8 @@ export const AuthContextProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         user: state.user,
+        cart: state.cart,
+        payments: state.payments,
         isLoggedIn: state.isLoggedIn,
         isLoading: state.isLoading,
         dispatch,

@@ -1,7 +1,6 @@
 "use client";
 import { useEffect } from "react";
 import NavLink from "./NavLink";
-import BackDrop from "@/app/(profile)/profile/_components/BackDrop";
 import {
   PiBooks,
   PiHouseSimpleBold,
@@ -9,6 +8,7 @@ import {
   PiX,
 } from "react-icons/pi";
 import { usePathname } from "next/navigation";
+import BackDrop from "./BackDrop";
 
 const NavBar = ({ open, setOpen }) => {
   const pathname = usePathname();

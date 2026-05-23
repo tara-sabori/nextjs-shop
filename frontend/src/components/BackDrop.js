@@ -1,8 +1,8 @@
-"use client"
-import React, { useEffect } from 'react'
+"use client";
+import React, { useEffect } from "react";
 
-const BackDrop = ({isOpen,onClose}) => {
-   useEffect(() => {
+const BackDrop = ({ isOpen, onClose }) => {
+  useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
     } else {
@@ -22,6 +22,6 @@ const BackDrop = ({isOpen,onClose}) => {
       className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 lg:hidden transition-opacity duration-300"
     />
   );
-}
+};
 
-export default BackDrop
+export default BackDrop;

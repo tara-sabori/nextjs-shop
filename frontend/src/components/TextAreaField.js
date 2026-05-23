@@ -15,11 +15,11 @@ const TextAreaField = ({
       </label>
       <textarea
         {...register(name, validationSchema)}
-        className="border border-secondary-400 resize-none p-1.5 w-full text-sm rounded-md outline-none focus:shadow-sm bg-secondary-50"
+        className="border border-secondary-300 resize-none p-1.5 w-full text-sm rounded-md outline-none focus:shadow-sm bg-secondary-50"
         name={name}
         id={name}
-        cols={3}
-        rows={3}
+        cols={4}
+        rows={4}
       ></textarea>
       {errors && errors[name] && (
         <span className="text-error block text-sm mt-2">

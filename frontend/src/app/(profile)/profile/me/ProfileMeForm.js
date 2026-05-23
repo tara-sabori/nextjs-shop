@@ -25,10 +25,11 @@ const ProfileMeForm = ({ user }) => {
 
   const onSubmit = async (myData) => {
     setIsLoading(true);
+    const userData = { ...user, ...myData };
     try {
       const { data } = await api.patch("/user/update", myData);
       toast.success(data?.data?.message);
-      dispatch({ type: "updateUser", payload: myData });
+      dispatch({ type: "updateUser", payload: userData });
     } catch (error) {
       console.log(error?.response);
       toast.error(error?.response?.data?.message || "مشکلی رخ داده است.");

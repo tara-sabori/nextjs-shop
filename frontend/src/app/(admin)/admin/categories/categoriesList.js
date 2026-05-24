@@ -1,6 +1,8 @@
-import Link from "next/link";
-import { HiEye, HiTrash } from "react-icons/hi";
-import { RiEdit2Line } from "react-icons/ri";
+"use client"
+import { useState } from "react";
+import CategoryRow from "./CategoryRow";
+import api from "@/services/api";
+import toast from "react-hot-toast";
 
 export const categoryListTableTHeads = [
   {
@@ -29,9 +31,22 @@ export const categoryListTableTHeads = [
   },
 ];
 
-const CategoriesList = ({ categories, isLoading }) => {
+const CategoriesList = ({ categories, isLoading,setCategories }) => {
+  const [isDeleting,setIsDeleting]=useState(false);
+  const deleteCategory=async (id) => {
+    try {
+      const {data}=await api.delete(`/admin/category/remove/${id}`);
+      setCategories(categories?.filter(cat=>cat?._id!==id));
+      toast.success(data?.data?.message);
+    } catch (error) {
+      console.log(error?.response);
+      toast.error(error?.esponse?.data?.message||"مشکلی رخ داده است.")
+    } finally {
+      setIsDeleting(false)
+    }
+  }
   return (
-    <div className="overflow-x-auto overflow-y-hidden my-8">
+    <div className="overflow-x-auto shadow-sm overflow-y-hidden my-8">
       <table className="border-collapse table-auto w-full min-w-200 text-sm">
         <thead>
           <tr>
@@ -58,38 +73,15 @@ const CategoriesList = ({ categories, isLoading }) => {
               </td>
             </tr>
           ) : (
-            categories?.map((category, index) => {
-              return (
-                <tr key={category._id} className="table__tr">
-                  <td className="table__td">{index + 1}</td>
-                  <td className="table__td  whitespace-nowrap">
-                    {category.title}
-                  </td>
-                  <td className="table__td">{category.description}</td>
-                  <td className="table__td">{category.englishTitle}</td>
-                  <td className="table__td">
-                    <span className="badge badge--secondary">
-                      {category.type}
-                    </span>
-                  </td>
-                  <td className="table__td font-bold text-lg">
-                    <div className="flex items-center gap-x-4">
-                      <Link href={`/admin/categories/${category._id}`}>
-                        <HiEye className="text-primary-900 text-lg" />
-                      </Link>
-                      <button
-                        onClick={() => removeCategoryHandler(category._id)}
-                      >
-                        <HiTrash className="text-rose-600 text-lg" />
-                      </button>
-                      <Link href={`/admin/categories/edit/${category._id}`}>
-                        <RiEdit2Line className="text-lg text-secondary-600" />
-                      </Link>
-                    </div>
-                  </td>
-                </tr>
-              );
-            })
+            categories?.map((category, index) => (
+              <CategoryRow
+                key={category._id}
+                category={category}
+                index={index}
+                isDeleting={isDeleting}
+                deleteCategory={deleteCategory}
+              />
+            ))
           )}
         </tbody>
       </table>

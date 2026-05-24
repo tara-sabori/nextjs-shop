@@ -58,6 +58,21 @@
   .table__td {
     @apply text-right p-3 py-5;
   }
+  .badge {
+    @apply whitespace-nowrap px-3 py-1 rounded-xl;
+  }
+  .badge--primary {
+    @apply bg-primary-900 text-white;
+  }
+  .badge--secondary {
+    @apply bg-secondary-600 text-white;
+  }
+  .badge--success {
+    @apply bg-green-600 text-white;
+  }
+  .badge--error {
+    @apply bg-rose-600 text-white;
+  }
 }
 
 /* @media (prefers-color-scheme: dark) {

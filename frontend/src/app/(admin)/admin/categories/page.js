@@ -6,7 +6,7 @@ import Link from "next/link";
 import { PiPlus } from "react-icons/pi";
 
 const AdminCategoriesPage = () => {
-  const { isLoadingCategories, categories } = useCategories();
+  const { isLoadingCategories, categories, setCategories } = useCategories();
   console.log(categories);
   return (
     <>
@@ -22,7 +22,11 @@ const AdminCategoriesPage = () => {
           <span>افزودن دسته‌بندی‌</span>
         </Link>
       </div>
-      <CategoriesList categories={categories} isLoading={isLoadingCategories} />
+      <CategoriesList
+        categories={categories}
+        setCategories={setCategories}
+        isLoading={isLoadingCategories}
+      />
     </>
   );
 };

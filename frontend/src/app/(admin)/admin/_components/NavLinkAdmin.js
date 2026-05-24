@@ -1,5 +1,5 @@
 import NavLink from "@/components/NavLink";
-import { PiBasket, PiChartLine, PiHouseSimpleBold, PiUser } from "react-icons/pi";
+import { PiBasket, PiChartLine, PiGridFour, PiHouseSimpleBold, PiUser, PiUsersFour, PiWallet } from "react-icons/pi";
 
 const NavLinkAdmin = () => {
   return (
@@ -22,6 +22,13 @@ const NavLinkAdmin = () => {
             <NavLink
               href={"/admin/categories"}
               title={"دسته‌بندی"}
+              icon={<PiGridFour />}
+            />
+          </li>
+          <li>
+            <NavLink
+              href={"/admin/products"}
+              title={"محصولات"}
               icon={<PiBasket />}
             />
           </li>
@@ -29,7 +36,14 @@ const NavLinkAdmin = () => {
             <NavLink
               href={"/admin/payments"}
               title={"سفارشات"}
-              icon={<PiBasket />}
+              icon={<PiWallet />}
+            />
+          </li>
+          <li>
+            <NavLink
+              href={"/admin/users"}
+              title={"کاربران"}
+              icon={<PiUsersFour />}
             />
           </li>
           <li>

@@ -21,5 +21,5 @@ export default function useCategories() {
     getCategories();
   }, []);
 
-  return { isLoadingCategories, categories };
+  return { isLoadingCategories, categories, setCategories };
 }

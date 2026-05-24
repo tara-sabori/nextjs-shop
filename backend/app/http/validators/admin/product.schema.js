@@ -21,7 +21,9 @@ const addProductSchema = Joi.object({
     .required()
     .error(createError.BadRequest("موجودی محصول صحیح نمی باشد.")),
   imageLink: Joi.string()
-    .required()
+    // .required()
+    .optional()
+    .allow("")
     .error(createError.BadRequest("لینک عکس دوره صحیح نمیباشد")),
   tags: Joi.array()
     .min(0)

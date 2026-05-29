@@ -46,6 +46,19 @@ const authReducer = (state, action) => {
         isLoading: false,
         isLoggedIn: false,
       };
+      
+      case "addToCart":
+      return {
+        ...state,
+        cart: action?.payload,
+      }
+
+      case "removeFromCart":
+      return {
+        ...state,
+        cart: action?.payload,
+      }
+
     case "error":
       return {
         ...state,

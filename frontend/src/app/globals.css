@@ -1,10 +1,5 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme {
   --font-vazir: "var(--font-vazir)";
   --color-primary: #74AEAF;

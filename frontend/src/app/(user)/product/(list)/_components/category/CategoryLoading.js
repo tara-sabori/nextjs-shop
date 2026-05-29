@@ -2,7 +2,7 @@ import React from 'react'
 
 const CategoryLoading = () => {
   return (
-    <div>Loading...</div>
+    <div>category loading...</div>
   )
 }
 

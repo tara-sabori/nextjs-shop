@@ -110,6 +110,7 @@ const ProductForm = ({ product = {} }) => {
         errors={errors}
         type="number"
         inputMode="numeric"
+        min={0}
       />
       <TextField
         name={"discount"}
@@ -117,13 +118,15 @@ const ProductForm = ({ product = {} }) => {
         register={register}
         type="number"
         inputMode="numeric"
+        min={0}
       />
       <TextField
         name={"offPrice"}
-        label={"offPrice"}
+        label={"قیمت روی تخفیف"}
         register={register}
         type="number"
         inputMode="numeric"
+        min={0}
       />
       <TextField
         name={"countInStock"}
@@ -134,6 +137,7 @@ const ProductForm = ({ product = {} }) => {
         errors={errors}
         type="number"
         inputMode="numeric"
+        min={0}
       />
       <TextField
         name={"imageLink"}

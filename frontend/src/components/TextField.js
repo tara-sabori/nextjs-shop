@@ -7,7 +7,8 @@ const TextField = ({
   required,
   errors,
   inputMode = "",
-  placeholder=""
+  placeholder="",
+  min
 }) => {
   return (
     <div>
@@ -22,6 +23,7 @@ const TextField = ({
         autoComplete="off"
         inputMode={inputMode}
         placeholder={placeholder}
+        min={min}
       />
       {errors && errors[name] && (
         <span className="text-error block text-sm mt-2">

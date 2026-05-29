@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
       dir="rtl"
     >
       <body
-        className={`${vazirFont.variable} font-vazir bg-background relative`}
+        className={`${vazirFont.variable} font-vazir relative`}
       >
         <AuthContextProvider>
           <Toaster />

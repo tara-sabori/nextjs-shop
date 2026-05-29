@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import NavLink from "./NavLink";
 import {
-  PiBooks,
+  PiBasket,
   PiHouseSimpleBold,
   PiPhoneCall,
   PiX,
@@ -32,8 +32,8 @@ const NavBar = ({ open, setOpen }) => {
               </button>
         </div>
         <NavLink href={"/"} title={"صفحه اصلی"} icon={<PiHouseSimpleBold />} />
-        <NavLink href={"/product"} title={"محصولات"} icon={<PiBooks />} />
-        <NavLink href={"/callus"} title={"تماس با ما"} icon={<PiPhoneCall />} />
+        <NavLink href={"/product"} title={"محصولات"} icon={<PiBasket />} />
+        {/* <NavLink href={"/callus"} title={"تماس با ما"} icon={<PiPhoneCall />} /> */}
       </nav>
     </>
   );

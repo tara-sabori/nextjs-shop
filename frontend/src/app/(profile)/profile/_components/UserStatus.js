@@ -1,9 +1,11 @@
 import InfoCard from "@/components/InfoCard";
 import { useAuth } from "@/context/AuthContext";
-import { PiBasket, PiHeart, PiPhone, PiVoicemail } from "react-icons/pi";
+import { toPersianNumbers } from "@/utils/toPersianNumbers";
+import { PiHeart, PiPhone, PiVoicemail, PiWallet } from "react-icons/pi";
 
 const UserStatus = () => {
-  const { user ,payments} = useAuth();
+  const { user, payments } = useAuth();
+  console.log(user);
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
       <InfoCard
@@ -19,15 +21,15 @@ const UserStatus = () => {
         className={"bg-pink-100 border-r-8 border-pink-600"}
       />
       <InfoCard
-        icon={<PiBasket />}
+        icon={<PiWallet />}
         title={"تعداد سفارشات "}
-        value={payments?.length}
+        value={toPersianNumbers(payments?.length || 0)}
         className={"bg-purple-100 border-r-8 border-purple-800"}
       />
       <InfoCard
         icon={<PiHeart />}
         title={"محصولات موردعلاقه شما"}
-        value={user?.likedProducts?.length}
+        value={toPersianNumbers(user?.likedProducts?.length || 0)}
         className={"bg-red-50 border-r-8 border-red-600"}
       />
     </div>

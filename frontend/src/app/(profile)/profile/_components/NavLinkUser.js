@@ -1,5 +1,5 @@
 import NavLink from "@/components/NavLink";
-import { PiBasket, PiChartLine, PiHouseSimpleBold, PiUser } from "react-icons/pi";
+import { PiChartLine, PiHouseSimpleBold, PiUser, PiWallet } from "react-icons/pi";
 
 const NavLinkUser = () => {
   return (
@@ -22,7 +22,7 @@ const NavLinkUser = () => {
             <NavLink
               href={"/profile/payments"}
               title={"سفارشات"}
-              icon={<PiBasket />}
+              icon={<PiWallet />}
             />
           </li>
           <li>

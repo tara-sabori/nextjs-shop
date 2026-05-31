@@ -1,4 +1,8 @@
 import toLocalDateString from "@/utils/toLocalDateString";
+import {
+  toPersianNumbers,
+  toPersianNumbersWithComma,
+} from "@/utils/toPersianNumbers";
 import React from "react";
 
 const userPaymentTHeads = [
@@ -48,52 +52,54 @@ const PaymentsTabel = ({ payments }) => {
           </tr>
         </thead>
         <tbody>
-          {
-          payments?.length<1?<tr> 
-            <td colSpan={7} className="text-center p-5">
+          {payments?.length < 1 ? (
+            <tr>
+              <td colSpan={7} className="text-center p-5">
                 <span>موردی یافت نشد</span>
-            </td>
-          </tr>:
-          payments?.map((payment, index) => {
-            return (
-              <tr key={payment?._id}>
-                <td className="table__td">{index}</td>
-                <td className="table__td  whitespace-nowrap truncate">
-                  {payment?.invoiceNumber}
-                </td>
-                <td className="table__td  max-w-70 whitespace-nowrap truncate">
-                  {payment?.description}
-                </td>
-                <td className="table__td">
-                  <div className="flex flex-col gap-y-2 items-start">
-                    {payment?.cart?.productDetail.map((product) => {
-                      return (
-                        <span
-                          className="badge badge--secondary"
-                          key={product?._id}
-                        >
-                          {product?.title}
-                        </span>
-                      );
-                    })}
-                  </div>
-                </td>
-                <td className="table__td font-bold text-lg">
-                  {payment?.amount}
-                </td>
-                <td className="table__td">
-                  {toLocalDateString(payment?.createdAt)}
-                </td>
-                <td className="table__td">
-                  {payment.status === "COMPLETED" ? (
-                    <span className="badge badge--success">موفق</span>
-                  ) : (
-                    <span className="badge badge--error">ناموفق</span>
-                  )}
-                </td>
-              </tr>
-            );
-          })}
+              </td>
+            </tr>
+          ) : (
+            payments?.map((payment, index) => {
+              return (
+                <tr key={payment?._id}>
+                  <td className="table__td">{index}</td>
+                  <td className="table__td  whitespace-nowrap truncate">
+                    {toPersianNumbers(payment?.invoiceNumber)}
+                  </td>
+                  <td className="table__td  max-w-70 whitespace-nowrap truncate">
+                    {payment?.description}
+                  </td>
+                  <td className="table__td">
+                    <div className="flex flex-col gap-y-2 items-start">
+                      {payment?.cart?.productDetail.map((product) => {
+                        return (
+                          <span
+                            className="badge badge--secondary text-xs"
+                            key={product?._id}
+                          >
+                            {product?.title}
+                          </span>
+                        );
+                      })}
+                    </div>
+                  </td>
+                  <td className="table__td whitespace-nowrap">
+                    {payment?.amount!=0? toPersianNumbersWithComma(payment?.amount)+" تومان":"رایگان"} 
+                  </td>
+                  <td className="table__td">
+                    {toLocalDateString(payment?.createdAt)}
+                  </td>
+                  <td className="table__td">
+                    {payment.status === "COMPLETED" ? (
+                      <span className="badge badge--success text-xs">موفق</span>
+                    ) : (
+                      <span className="badge badge--error text-xs">ناموفق</span>
+                    )}
+                  </td>
+                </tr>
+              );
+            })
+          )}
         </tbody>
       </table>
     </div>

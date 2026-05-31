@@ -21,7 +21,7 @@ const NavBar = ({ open, setOpen }) => {
       <nav
         className={`flex flex-col fixed lg:static bg-secondary-50 w-75 px-5 py-10 lg:p-0 top-0 right-0 h-full gap-8 lg:flex-row lg:w-fit z-50
           transform transition-transform duration-300
-          ${open ? "translate-x-0" : "translate-x-full"}
+          ${open ? "translate-x-0 pointer-events-none" : "translate-x-full"}
           lg:translate-x-0`}
       >
         <div className="text-left absolute left-5 top-4 block lg:hidden">

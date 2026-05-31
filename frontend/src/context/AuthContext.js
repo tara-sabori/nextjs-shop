@@ -1,7 +1,6 @@
 "use client";
 import api from "@/services/api";
-
-const { createContext, useReducer, useEffect, useContext } = require("react");
+import { createContext, useReducer, useEffect, useContext } from "react";
 
 const AuthContext = createContext();
 
@@ -37,6 +36,12 @@ const authReducer = (state, action) => {
         user: action?.payload,
       };
 
+    case "likeProduct":
+      return {
+        ...state,
+        user: action?.payload,
+      };
+
     case "logout":
       return {
         ...state,
@@ -57,6 +62,13 @@ const authReducer = (state, action) => {
       return {
         ...state,
         cart: action?.payload,
+      }
+
+      case "createPayment":
+      return {
+        ...state,
+        cart: null,
+        payments:action?.payload,
       }
 
     case "error":

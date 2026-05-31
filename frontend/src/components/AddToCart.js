@@ -2,6 +2,7 @@
 
 import { useAuth } from "@/context/AuthContext";
 import api from "@/services/api";
+import { toPersianNumbers } from "@/utils/toPersianNumbers";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -68,12 +69,12 @@ const AddToCart = ({ productId }) => {
         <button
           onClick={checkUserHandler}
           disabled={isLoading}
-          className="bgGradient w-full rounded-md p-1.5 text-sm text-white mt-5"
+          className="bgGradient w-full rounded-md p-1.5 text-sm text-white"
         >
           افزودن به سبد خرید
         </button>
       ) : (
-        <div className="flex items-center gap-2 justify-end mt-5">
+        <div className="flex items-center gap-2 justify-end">
           <button
             type="button"
             onClick={addToCartHandler}
@@ -86,7 +87,7 @@ const AddToCart = ({ productId }) => {
             {isLoading ? (
                 <PiCircleNotch className="animate-spin text-xl text-primary-900" />
             ) : (
-              existProductInCart?.quantity
+              toPersianNumbers(existProductInCart?.quantity)
             )}
           </span>
           {existProductInCart?.quantity === 1 ? (

@@ -3,9 +3,9 @@ import CategorySideBar from "./_components/category/CategorySideBar";
 export default function ProductLayout({ children }) {
   return (
     <section className="container">
-      <div className="grid grid-cols-4">
+      <div className="grid grid-cols-4 gap-4">
         {/* side bar */}
-        <div className="hidden lg:block lg:col-span-1">
+        <div className="col-span-4 lg:col-span-1">
           <CategorySideBar />
         </div>
         {/* course cards */}

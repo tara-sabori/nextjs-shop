@@ -1,29 +1,27 @@
+"use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const CategoryList = ({ categories }) => {
+  const pathname = usePathname();
+  const [, , , cat] = pathname.split("/");
+  console.log(cat);
   return (
-    <div className="space-y-2 h-[150px] max-h-[300px]">
-      <div className="flex items-center gap-2.5">
-        {/* <input id={"all"} type="radio" name="categoryItem" />
-        <label
-          htmlFor={"all"}
-          className="text-nowrap text-sm select-none cursor-pointer"
-        >
-          همه
-        </label> */}
-        <Link href={`/product`}>همه</Link>
-      </div>
+    <div className="flex flex-row lg:flex-col gap-6 lg:gap-2 lg:h-30 lg:max-h-75 lg:overflow-y-auto">
+      <Link
+        className={`${!cat ? "mygradient" : "text-secondary-700"} text-sm whitespace-nowrap`}
+        href={`/product`}
+      >
+        همه
+      </Link>
       {categories?.map((category) => (
-        <div className="flex items-center gap-2.5" key={category?._id}>
-          {/* <input id={category?._id} type="radio" name="categoryItem" />
-          <label
-            htmlFor={category?._id}
-            className="text-nowrap text-sm select-none cursor-pointer"
-          >
-            {category?.title}
-          </label> */}
-          <Link href={`/product/category/${category?.englishTitle}`}>{category?.title}</Link>
-        </div>
+        <Link
+          className={`${cat === category?.englishTitle ? "mygradient" : "text-secondary-700"} text-sm whitespace-nowrap`}
+          key={category?._id}
+          href={`/product/category/${category?.englishTitle}`}
+        >
+          {category?.title}
+        </Link>
       ))}
     </div>
   );

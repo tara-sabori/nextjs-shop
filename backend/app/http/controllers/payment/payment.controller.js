@@ -65,10 +65,12 @@ class PaymentController extends Controller {
         }
       );
 
+    const payments = await PaymentModel.find({ user: user?._id });
     return res.status(HttpStatus.OK).json({
       statusCode: HttpStatus.OK,
       data: {
         message: "سفارش شما با موفقیت ثبت شد",
+        payments,
       },
     });
   }

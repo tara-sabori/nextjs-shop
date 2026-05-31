@@ -42,7 +42,7 @@
     @apply bg-linear-to-l from-primary-900 to-blue-950
   }
   .container{
-    @apply max-w-300! mx-auto
+    @apply max-w-300! mx-auto px-5 2xl:px-0
   }
   .table__th {
     @apply border-b-2 border-b-gray-200 bg-secondary-100 font-medium p-3 pb-3 text-right;

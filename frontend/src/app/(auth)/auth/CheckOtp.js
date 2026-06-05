@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import SubmitButton from "@/components/SubmitButton";
 import { useAuth } from "@/context/AuthContext";
 
-export const CheckOtp = ({ phone, setStep }) => {
+export const CheckOtp = ({ phone, setStep, setOtpMessage, otpMessage }) => {
   const { dispatch } = useAuth();
   const router = useRouter();
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
@@ -34,12 +34,15 @@ export const CheckOtp = ({ phone, setStep }) => {
       phoneNumber: phone,
     };
     try {
-      const data = await api.post("/user/get-otp", formData);
+      const {data} = await api.post("/user/get-otp", formData);
       setOtp(["", "", "", "", "", ""]);
       setTime(90);
+      setOtpMessage(data?.data?.message);
+      toast.success("کد تایید ارسال شد.");
       console.log(data);
     } catch (error) {
       console.log(error);
+      toast.error(error?.response?.data?.message || "مشکلی رخ داده است.");
     }
   };
   const checkOtpHandler = async (e) => {
@@ -80,7 +83,10 @@ export const CheckOtp = ({ phone, setStep }) => {
       <p className="text-xs text-secondary-800">
         کد تایید برای شماره {phone} ارسال شد
       </p>
-      <h3 className="text-sm mb-4">کد تایید را وارد کنید</h3>
+      <h3 className="text-sm mb-4">
+        کد تایید را وارد کنید
+        <span className="text-xs text-secondary-800">{otpMessage}</span>
+      </h3>
       <OtpInputs otp={otp} setOtp={setOtp} />
       <SubmitButton disabled={isLoading || otp?.join("")?.length < 6}>
         <span>تایید و ورود</span>

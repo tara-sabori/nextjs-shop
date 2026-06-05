@@ -2,8 +2,9 @@
 import SubmitButton from "@/components/SubmitButton";
 import api from "@/services/api";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
-const GetOtp = ({ setStep, phone, setPhone }) => {
+const GetOtp = ({ setStep, phone, setPhone, setOtpMessage }) => {
   const [isLoading, setIsLoading] = useState(false);
   const getOtpHandler = async (e) => {
     e.preventDefault();
@@ -12,11 +13,14 @@ const GetOtp = ({ setStep, phone, setPhone }) => {
       phoneNumber: phone,
     };
     try {
-      const data = await api.post("/user/get-otp", formData);
+      const { data } = await api.post("/user/get-otp", formData);
       console.log(data);
+      setOtpMessage(data?.data?.message);
+      toast.success("کد تایید ارسال شد.");
       setStep(2);
     } catch (error) {
       console.log(error);
+      toast.error(error?.response?.data?.message || "مشکلی رخ داده است.");
     } finally {
       setIsLoading(false);
     }

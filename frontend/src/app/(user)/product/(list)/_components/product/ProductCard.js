@@ -20,11 +20,11 @@ const ProductCard = ({ product }) => {
         />
         <Image
           alt={product?.title}
-          src={"/images/not-found.jpg"}
+          src={"/images/not-found2.png"}
           width={100}
           height={100}
           loading="eager"
-          className="w-full h-37.5"
+          className="w-full object-contain h-37.5"
         />
         {product?.discount != 0 && (
           <div className="bg-rose-500 px-2 py-0.5 rounded-xl text-white text-xs absolute top-1 left-1">

@@ -60,8 +60,12 @@ class ProductController extends Controller {
   async getListOfProducts(req, res) {
     let dbQuery = {};
     const user = req.user;
-    const { search, category, sort, type } = req.query;
-    // console.log({ category, sort, type });
+    let { search, category, sort, type, page = 1, limit = 10 } = req.query;
+
+    page = page || 1;
+    limit = limit || 10;
+    const skip = (page - 1) * limit;
+
     if (search) dbQuery["$text"] = { $search: search };
     if (category) {
       const categories = category.split(",");
@@ -83,12 +87,16 @@ class ProductController extends Controller {
       if (sort === "popular") sortQuery["likes"] = -1;
     }
 
+    const totalProducts = await ProductModel.countDocuments(dbQuery);
+    console.log("total", totalProducts);
     const products = await ProductModel.find(dbQuery, {
       reviews: 0,
     })
       .populate([{ path: "category", select: { title: 1, englishTitle: 1 } }])
-      .sort(sortQuery);
-
+      .sort(sortQuery)
+      .limit(limit)
+      .skip(skip);
+    console.log("product", products);
     const transformedProducts = copyObject(products);
 
     const newProducts = transformedProducts.map((product) => {
@@ -109,6 +117,10 @@ class ProductController extends Controller {
       statusCode: HttpStatus.OK,
       data: {
         products: newProducts,
+        totalProducts,
+        page,
+        limit,
+        totalPages: Math.ceil(totalProducts / limit),
       },
     });
   }
@@ -165,7 +177,7 @@ class ProductController extends Controller {
     const { discount, offPrice } = req.body;
     const result = await ProductModel.updateOne(
       { _id: id },
-      { $set: { discount, offPrice } }
+      { $set: { discount, offPrice } },
     );
     if (result.modifiedCount > 0) {
       return res.status(HttpStatus.OK).json({
@@ -200,11 +212,11 @@ class ProductController extends Controller {
       { _id: id },
       {
         $set: data,
-      }
+      },
     );
     if (!updateProductResult.modifiedCount)
       throw new createHttpError.InternalServerError(
-        "به روزرسانی محصول انجام نشد"
+        "به روزرسانی محصول انجام نشد",
       );
 
     return res.status(HttpStatus.OK).json({
@@ -232,11 +244,11 @@ class ProductController extends Controller {
 
     const productUpdate = await ProductModel.updateOne(
       { _id: productId },
-      updateProductQuery
+      updateProductQuery,
     );
     const userUpdate = await UserModel.updateOne(
       { _id: user._id },
-      updateUserQuery
+      updateUserQuery,
     );
 
     if (productUpdate.modifiedCount === 0 || userUpdate.modifiedCount === 0)

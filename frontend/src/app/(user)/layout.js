@@ -4,7 +4,7 @@ export default function UserLayout({ children }) {
   return (
     <div>
       <Header />
-      <main className="pt-20 pb-5">{children}</main>
+      <main className="pt-20">{children}</main>
     </div>
   );
 }

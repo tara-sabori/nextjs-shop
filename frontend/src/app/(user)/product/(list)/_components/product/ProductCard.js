@@ -9,7 +9,7 @@ import LikeProduct from "./LikeProduct";
 const ProductCard = ({ product }) => {
   // console.log(product);
   return (
-    <section className="w-[250px] lg:w-[200px] space-y-3 rounded-lg bg-secondary-50 shadow-md hover:scale-105 overflow-hidden">
+    <section className="w-[250px] lg:w-[200px] space-y-3 rounded-lg bg-secondary-50 shadow-md hover:scale-105 overflow-hidden border border-secondary-200/70">
       {/* img and like*/}
       <div className="w-full h-37.5 bg-secondary-100 relative">
         {/* like button */}
@@ -20,14 +20,14 @@ const ProductCard = ({ product }) => {
         />
         <Image
           alt={product?.title}
-          src={"/images/not-found2.png"}
+          src={"/images/mens-cotton.png"}
           width={100}
           height={100}
           loading="eager"
           className="w-full object-contain h-37.5"
         />
         {product?.discount != 0 && (
-          <div className="bg-rose-500 px-2 py-0.5 rounded-xl text-white text-xs absolute top-1 left-1">
+          <div className="bg-rose-500 px-2 py-0.5 rounded-xl text-white text-xs absolute top-1 right-1">
             {toPersianNumbers(product?.discount)} %
           </div>
         )}
@@ -50,7 +50,7 @@ const ProductCard = ({ product }) => {
         <span className="mygradient font-semibold text-sm rounded-md p-1.5">
           قیمت:
         </span>
-        {product?.offPrice ? (
+        {product?.discount ? (
           <div className="flex flex-col">
             <span className="text-sm font-semibold text-secondary-700">
               {toPersianNumbersWithComma(product?.offPrice)} تومان

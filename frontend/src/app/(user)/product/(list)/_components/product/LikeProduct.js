@@ -42,21 +42,21 @@ const LikeProduct = ({ productId, likesCount, isLiked }) => {
     }
   };
   return (
-    <div className="flex items-center gap-0.5 py-0.5 absolute bg-red-50 w-fit rounded-lg px-1 top-1 right-1">
+    <div className="flex items-center gap-0.5 py-0.5 absolute bg-red-50 w-fit rounded-lg px-1 top-1 left-1">
+      <span className="text-xs text-secondary-500 pt-0.5">
+        {likesCount > 0 && toPersianNumbers(likesCount)}
+      </span>
       <button
         onClick={likeHandler}
         disabled={isLoading}
         className="cursor-pointer disabled:cursor-not-allowed"
       >
         {isLiked ? (
-          <PiHeartFill className="text-red-600" />
+          <PiHeartFill className="text-red-600 text-lg" />
         ) : (
-          <PiHeart className="text-red-600" />
+          <PiHeart className="text-red-600 text-lg" />
         )}
       </button>
-      <span className="text-xs text-secondary-500 pt-0.5">
-        {toPersianNumbers(likesCount)}
-      </span>
     </div>
   );
 };

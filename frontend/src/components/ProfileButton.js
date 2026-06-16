@@ -1,13 +1,27 @@
+"use client";
 import useLogOut from "@/hooks/useLogOut";
 import Link from "next/link";
-import React, { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { PiCaretDown, PiUser } from "react-icons/pi";
 
-const ProfileButton = ({ name, url }) => {
+const ProfileButton = ({ url }) => {
+  const ref = useRef();
   const [openMenue, setOpenMenue] = useState(false);
   const { logoutHandler } = useLogOut();
+  useEffect(() => {
+    function handleClick(e) {
+      if (ref.current && !ref.current.contains(e.target)) {
+        setOpenMenue(false);
+      }
+    }
+
+    document.addEventListener("click", handleClick);
+
+    return () => document.removeEventListener("click", handleClick);
+  });
   return (
     <button
+      ref={ref}
       type="button"
       onClick={() => setOpenMenue(!openMenue)}
       className="relative flex items-center justify-center p-1.5 gap-1 w-fit cursor-pointer text-secondary-700 border border-secondary-200 rounded-lg"

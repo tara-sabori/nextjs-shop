@@ -34,7 +34,7 @@ export const CheckOtp = ({ phone, setStep, setOtpMessage, otpMessage }) => {
       phoneNumber: phone,
     };
     try {
-      const {data} = await api.post("/user/get-otp", formData);
+      const { data } = await api.post("/user/get-otp", formData);
       setOtp(["", "", "", "", "", ""]);
       setTime(90);
       setOtpMessage(data?.data?.message);
@@ -58,7 +58,7 @@ export const CheckOtp = ({ phone, setStep, setOtpMessage, otpMessage }) => {
       console.log(data?.data);
       const role = data?.data?.user?.role;
       const isActive = data?.data?.user?.isActive;
-      toast.success(data?.data?.message);
+      toast.success("به فروشگاه کارت خوش آمدید.");
       dispatch({ type: "getUser", payload: data?.data });
       if (!isActive) router.replace("/auth/complete-profile");
       else if (role === "ADMIN") router.replace("/admin");
@@ -71,9 +71,15 @@ export const CheckOtp = ({ phone, setStep, setOtpMessage, otpMessage }) => {
     }
   };
   return (
-    <form className="space-y-2" onSubmit={checkOtpHandler}>
+    <form className="space-y-2 relative" onSubmit={checkOtpHandler}>
+      <div className="bg-blue-50 border border-blue-200 text-blue-700 text-sm rounded-xl p-3 mb-4 w-full absolute -top-40">
+        🧪 نسخه آزمایشی: سیستم ارسال کد فعال نیست. کد تأیید در همین صفحه نمایش
+        داده می‌شود.
+      </div>
       <div className="flex justify-between">
-        <h2 className="text-primary-600 font-bold">نکست وان کد</h2>
+        <h2 className="font-bold">
+          <span className="mygradient">فروشگاه کارت</span>
+        </h2>
         <IoMdArrowRoundBack
           onClick={backToStepOne}
           className="text-secondary-500 cursor-pointer"
@@ -85,7 +91,7 @@ export const CheckOtp = ({ phone, setStep, setOtpMessage, otpMessage }) => {
       </p>
       <h3 className="text-sm mb-4">
         کد تایید را وارد کنید
-        <span className="text-xs text-secondary-800">{otpMessage}</span>
+        <span className="text-xs text-secondary-800 mr-2">{otpMessage}</span>
       </h3>
       <OtpInputs otp={otp} setOtp={setOtp} />
       <SubmitButton disabled={isLoading || otp?.join("")?.length < 6}>

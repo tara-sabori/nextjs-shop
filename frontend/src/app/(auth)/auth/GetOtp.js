@@ -34,7 +34,9 @@ const GetOtp = ({ setStep, phone, setPhone, setOtpMessage }) => {
   };
   return (
     <form className="space-y-2" onSubmit={getOtpHandler}>
-      <h2 className="text-primary-600 font-bold">نکست وان کد</h2>
+      <h2 className="font-bold">
+        <span className="mygradient">فروشگاه کارت</span>
+      </h2>
       <h3 className="text-sm">ورود | ثبت نام</h3>
       <p className="text-sm">لطفا شماره موبایل خود را وارد کنید</p>
       <input

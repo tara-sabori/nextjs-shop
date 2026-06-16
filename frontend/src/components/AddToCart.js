@@ -21,6 +21,10 @@ const AddToCart = ({ productId }) => {
     (c) => c?._id === productId,
   );
   const addToCartHandler = async () => {
+    if (user?.role === "ADMIN") {
+      toast.error("امکان خرید برای ادمین وجود ندارد.");
+      return;
+    }
     setIsLoading(true);
     try {
       const { data } = await api.post("/cart/add", { productId });
@@ -69,7 +73,7 @@ const AddToCart = ({ productId }) => {
         <button
           onClick={checkUserHandler}
           disabled={isLoading}
-          className="bgGradient w-full rounded-md p-1.5 text-sm text-white"
+          className="bgGradient cursor-pointer disabled:cursor-not-allowed w-full rounded-md p-1.5 text-sm text-white"
         >
           افزودن به سبد خرید
         </button>
@@ -79,13 +83,13 @@ const AddToCart = ({ productId }) => {
             type="button"
             onClick={addToCartHandler}
             disabled={isLoading}
-            className="cursor-pointer border border-primary-900 rounded-md p-0.5 text-primary-900 text-sm"
+            className="cursor-pointer disabled:cursor-not-allowed border border-primary-900 rounded-md p-0.5 text-primary-900 text-sm"
           >
             <PiPlusBold />
           </button>
           <span>
             {isLoading ? (
-                <PiCircleNotch className="animate-spin text-xl text-primary-900" />
+              <PiCircleNotch className="animate-spin text-xl text-primary-900" />
             ) : (
               toPersianNumbers(existProductInCart?.quantity)
             )}
@@ -104,7 +108,7 @@ const AddToCart = ({ productId }) => {
               type="button"
               onClick={removeFromCartHandler}
               disabled={isLoading}
-              className="cursor-pointer border border-primary-900 rounded-md p-0.5 text-primary-900 text-sm"
+              className="cursor-pointer disabled:cursor-not-allowed border border-primary-900 rounded-md p-0.5 text-primary-900 text-sm"
             >
               <PiMinusBold />
             </button>

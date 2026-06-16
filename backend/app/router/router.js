@@ -3,6 +3,7 @@ const { adminRoutes } = require("./admin/admin.routes");
 const { cartRoutes } = require("./cart");
 const { categoryRoutes } = require("./category");
 const { paymentRoutes } = require("./payment");
+const { DashboardRoutes } = require("./dashbord");
 const { productRoutes } = require("./product");
 const { userAuthRoutes } = require("./user.routes");
 
@@ -14,6 +15,7 @@ router.use("/product", productRoutes);
 router.use("/payment", paymentRoutes);
 router.use("/cart", verifyAccessToken, cartRoutes);
 router.use("/admin", verifyAccessToken, adminRoutes);
+router.use("/admin/dashboard", DashboardRoutes);
 
 module.exports = {
   allRoutes: router,

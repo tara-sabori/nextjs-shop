@@ -23,7 +23,7 @@ export default function LatestProducts() {
           <h2 className="text-2xl md:text-3xl font-bold">
             <span className="mygradient">آخرین محصولات</span>
           </h2>
-          <Link className="mygradient text-lg" href={"/product"}>
+          <Link className="text-secondary-500 text-base md:text-lg" href={"/product"}>
             مشاهده همه
           </Link>
         </div>
@@ -45,7 +45,7 @@ export default function LatestProducts() {
               ? [1, 2, 3, 4].map((item) => (
                   <SwiperSlide
                     key={item}
-                    className="!w-[250px] lg:!w-[200px] p-5"
+                    className="!w-[250px] lg:!w-[200px] py-5 ml-5"
                   >
                     <ProductCardSkeleton />
                   </SwiperSlide>

@@ -4,11 +4,10 @@ import ReactPaginate from "react-paginate";
 import { PiCaretLeftFill, PiCaretRightFill } from "react-icons/pi";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 
-const Paginate = ({ pageCount = 1 }) => {
+const Paginate = ({ pageCount = 1, isClient = false }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-
 
   const currentPage = Number(searchParams.get("page")) || 1;
 
@@ -16,7 +15,11 @@ const Paginate = ({ pageCount = 1 }) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set("page", (data.selected + 1).toString());
     const query = params.toString();
-    router.push(`${pathname}?${query}`);
+    if (!isClient) {
+      router.push(`${pathname}?${query}`);
+    } else {
+      window.history.pushState(null, "", `${pathname}?${query}`);
+    }
     window.scrollTo({
       top: 0,
       left: 0,

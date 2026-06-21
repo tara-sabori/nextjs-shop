@@ -20,7 +20,7 @@ const ProductCard = ({ product }) => {
         />
         <Image
           alt={product?.title}
-          src={"/images/mens-cotton.png"}
+            src={product?.imageLink || "/images/not-found2.png"}
           width={100}
           height={100}
           loading="eager"
@@ -51,11 +51,11 @@ const ProductCard = ({ product }) => {
           قیمت:
         </span>
         {product?.discount ? (
-          <div className="flex flex-col">
+          <div className="flex flex-col relative">
             <span className="text-sm font-semibold text-secondary-700">
               {toPersianNumbersWithComma(product?.offPrice)} تومان
             </span>
-            <del className="text-xs text-secondary-500">
+            <del className="text-xs text-secondary-500 absolute -bottom-3">
               {toPersianNumbersWithComma(product?.price)} تومان
             </del>
           </div>

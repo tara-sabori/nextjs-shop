@@ -1,7 +1,7 @@
 import ProductCardSkeleton from "@/components/ProductCardSkeleton";
 import React from "react";
 
-const loading = () => {
+const Productloading = () => {
   return (
     <div className="flex items-stretch justify-center lg:justify-start gap-4 flex-wrap">
       {[1, 2, 3, 4].map((item) => (
@@ -11,4 +11,4 @@ const loading = () => {
   );
 };
 
-export default loading;
+export default Productloading;

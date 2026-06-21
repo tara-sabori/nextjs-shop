@@ -39,7 +39,7 @@ export default async function ProductBySlugPage({ params }) {
   }
 
   if (!product) {
-    notFound(); 
+    notFound();
   }
 
   console.log(product);
@@ -49,7 +49,7 @@ export default async function ProductBySlugPage({ params }) {
       <main className="space-y-4 col-span-3 md:col-span-2 pb-10 md:pb-0">
         <div className="block md:hidden w-full h-[250px]">
           <Image
-            src={"/images/not-found2.png"}
+            src={product?.imageLink || "/images/not-found2.png"}
             width={200}
             height={200}
             alt={product?.title}
@@ -69,7 +69,11 @@ export default async function ProductBySlugPage({ params }) {
         </div>
         <div className="flex items-center gap-2">
           <span className="text-secondary-700">موجودی:</span>
-          <span>{toPersianNumbers(product?.countInStock)}</span>
+          <span>
+            {product?.countInStock > 0
+              ? toPersianNumbers(product?.countInStock)
+              : "ناموجود"}
+          </span>
         </div>
         <div className="flex items-center gap-2">
           <span className="text-secondary-700">دسته‌بندی:</span>
@@ -96,7 +100,7 @@ export default async function ProductBySlugPage({ params }) {
       <section className="fixed bottom-0 left-0 right-0 shadow-lg md:shadow-none bg-secondary-50 md:bg-white md:static md:col-span-1 px-3 md:px-10">
         <div className="hidden md:block w-full h-[250px] mr-auto">
           <Image
-            src={"/images/not-found2.png"}
+            src={product?.imageLink || "/images/not-found2.png"}
             width={200}
             height={200}
             alt={product?.title}

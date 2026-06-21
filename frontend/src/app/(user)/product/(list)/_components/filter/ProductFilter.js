@@ -3,21 +3,9 @@ import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 
 const sortOptions = [
-  {
-    id: 1,
-    value: "earliest",
-    label: "قدیمی ترین",
-  },
-  {
-    id: 2,
-    value: "latest",
-    label: "جدید ترین",
-  },
-  {
-    id: 3,
-    value: "popular",
-    label: "محبوب ترین",
-  },
+  { id: 1, value: "earliest", label: "قدیمی ترین" },
+  { id: 2, value: "latest", label: "جدید ترین" },
+  { id: 3, value: "popular", label: "محبوب ترین" },
 ];
 
 const ProductFilter = () => {
@@ -37,35 +25,38 @@ const ProductFilter = () => {
     [searchParams],
   );
 
-  const sortHandler = (e) => {
-    const value = e.target.value;
+  const sortHandler = (value) => {
     setMySort(value);
     router.push(pathname + "?" + createQueryString("sort", value));
   };
+
   return (
-    <div className="w-full lg:w-[90%] overflow-x-auto rounded-lg lg:border lg:border-secondary-300 bg-secondary-50 p-3 flex flex-row lg:flex-col gap-4">
-      <h3 className="mygradient text-sm font-semibold whitespace-nowrap">
-        مرتب‌سازی
-      </h3>
-      {sortOptions?.map((option) => (
-        <div className="flex items-center gap-2" key={option?.id}>
-          <input
-            className="cursor-pointer"
-            type="radio"
-            name="sort-filter"
-            id={option?.id}
-            value={option?.value}
-            checked={mySort === option?.value}
-            onChange={sortHandler}
-          />
-          <label
-            className="cursor-pointer text-sm text-secondary-700 whitespace-nowrap"
-            htmlFor={option?.id}
-          >
-            {option?.label}
-          </label>
-        </div>
-      ))}
+    <div className="w-full lg:w-[90%] rounded-2xl border border-secondary-200 bg-white/80 backdrop-blur-sm shadow-sm p-4 lg:p-5">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="mygradient text-sm font-bold whitespace-nowrap">
+          مرتب‌سازی
+        </h3>
+        <span className="text-xs text-secondary-500">انتخاب یک گزینه</span>
+      </div>
+
+      <div className="flex flex-row lg:flex-col gap-3 overflow-x-auto pb-2">
+        {sortOptions.map((option) => {
+          return (
+            <button
+              key={option.id}
+              type="button"
+              onClick={() => sortHandler(option.value)}
+              className={`group relative flex items-center gap-3 rounded-xl border px-4 py-3 text-sm transition-all duration-300 whitespace-nowrap min-w-fit lg:w-full cursor-pointer ${
+                mySort === option.value
+                  ? "border-primary-400 bg-primary-50 text-primary-700 shadow-sm"
+                  : "border-secondary-200 bg-secondary-50 text-secondary-700 hover:border-primary-300 hover:bg-primary-50/50"
+              }`}
+            >
+              <span className="font-medium">{option.label}</span>
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 };

@@ -7,7 +7,6 @@ import { PiPlus } from "react-icons/pi";
 
 const AdminCategoriesPage = () => {
   const { isLoadingCategories, categories, setCategories } = useCategories();
-  console.log(categories);
   return (
     <>
       <div className="flex items-center justify-between">

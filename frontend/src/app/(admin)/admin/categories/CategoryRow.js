@@ -1,3 +1,4 @@
+import { toPersianNumbers } from "@/utils/toPersianNumbers";
 import Link from "next/link";
 import React from "react";
 import { HiEye, HiTrash } from "react-icons/hi";
@@ -6,7 +7,7 @@ import { RiEdit2Line } from "react-icons/ri";
 const CategoryRow = ({ category, index, deleteCategory, isDeleting }) => {
   return (
     <tr className="table__tr">
-      <td className="table__td">{index + 1}</td>
+      <td className="table__td">{toPersianNumbers(index + 1)}</td>
       <td className="table__td  whitespace-nowrap">{category.title}</td>
       <td className="table__td">{category.description}</td>
       <td className="table__td">{category.englishTitle}</td>

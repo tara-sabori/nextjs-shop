@@ -1,4 +1,6 @@
+import { useSearchParams } from "next/navigation";
 import UsersRow from "./UsersRow";
+import Paginate from "@/components/Paginate";
 
 export const userListTableHeads = [
   {
@@ -28,8 +30,14 @@ export const userListTableHeads = [
 ];
 
 const UsersList = ({users,isLoading}) => {
+  const page = useSearchParams().get("page") || 1;
+    const lastIndex = page * 4;
+    const firstIndex = lastIndex - 4;
+    const records = users?.slice(firstIndex, lastIndex);
+    const pageCount = Math.ceil(users?.length / 4);
   return (
-    <div className="overflow-x-auto my-8 shadow-sm">
+    <>
+      <div className="overflow-x-auto my-8 shadow-sm">
       <table className="border-collapse table-auto w-full min-w-200 text-sm">
         <thead>
           <tr>
@@ -49,20 +57,22 @@ const UsersList = ({users,isLoading}) => {
                 <span>در حال بارگذاری...</span>
               </td>
             </tr>
-          ) : users?.length < 1 ? (
+          ) : records?.length < 1 ? (
             <tr>
               <td colSpan={6} className="text-center p-5">
                 <span>موردی یافت نشد</span>
               </td>
             </tr>
           ) : (
-            users.map((user, index) => (
-              <UsersRow user={user} index={index} />
+            records.map((user, index) => (
+              <UsersRow key={user?._id} user={user} index={users?.indexOf(user)} />
             ))
           )}
         </tbody>
       </table>
     </div>
+      {!isLoading && <Paginate pageCount={pageCount} isClient={true} />}
+    </>
   )
 }
 

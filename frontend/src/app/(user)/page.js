@@ -6,12 +6,12 @@ import PopularCategories from "@/components/PopularCategories";
 
 export default function Home() {
   return (
-    <div className="">
+    <>
       <Hero />
       <Features />
       <LatestProducts />
       <PopularCategories />
       <Footer />
-    </div>
+    </>
   );
 }

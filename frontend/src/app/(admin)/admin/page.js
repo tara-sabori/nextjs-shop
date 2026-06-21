@@ -8,9 +8,9 @@ import React, { useEffect, useState } from "react";
 import { PiBasket, PiGridFour, PiUsersFour } from "react-icons/pi";
 
 const AdminPage = () => {
-  const { user } = useAuth();
+  const { user, isLoading } = useAuth();
   const [dashboardData, setDashboardData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingDashboard, setIsLoadingDashboard] = useState(true);
   useEffect(() => {
     const getData = async () => {
       try {
@@ -19,16 +19,16 @@ const AdminPage = () => {
       } catch (error) {
         console.log(error?.response);
       } finally {
-        setIsLoading(false);
+        setIsLoadingDashboard(false);
       }
     };
     getData();
   }, []);
   console.log(dashboardData);
-  return isLoading ? (
+  return isLoading || isLoadingDashboard ? (
     <MyLoading />
   ) : (
-    <div className="p-5 lg:pt-8 lg:w-[80%] space-y-5 lg:space-y-8">
+    <div className="p-5 lg:w-[80%] space-y-5 lg:space-y-8">
       <h3 className="text-secondary-700 text-base lg:text-lg">
         ادمین <span className="font-semibold mygradient">{user?.name}</span>{" "}
         عزیز خوش آمدید!

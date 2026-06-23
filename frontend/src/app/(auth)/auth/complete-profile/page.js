@@ -33,7 +33,7 @@ const CompleteProfilePage = () => {
   };
   return (
     <div className="w-[80%] md:w-100 border border-secondary-300 py-8 px-4 rounded-md mx-auto mt-10 relative">
-      <div className="absolute -top-3 w-fit bg-background">
+      <div className="absolute -top-3 w-fit bg-white">
         <h3 className="text-base mygradient">تکمیل اطلاعات</h3>
       </div>
       <form className="space-y-2" onSubmit={handleSubmit(onSubmit)}>
@@ -45,6 +45,10 @@ const CompleteProfilePage = () => {
           errors={errors}
           validationSchema={{
             required: "این فیلد الزامی است.",
+            minLength:{
+              value:4,
+              message:"نام وارد شده باید بیشتر از 4 حرف باشد."
+            }
           }}
         />
         <TextField
@@ -56,9 +60,13 @@ const CompleteProfilePage = () => {
           required
           validationSchema={{
             required: "این فیلد الزامی است.",
+            pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+              message: "فرمت ایمیل صحیح نیست",
+            },
           }}
         />
-        <SubmitButton>ثبت</SubmitButton>
+        <SubmitButton disabled={isLoading}>ثبت</SubmitButton>
       </form>
     </div>
   );

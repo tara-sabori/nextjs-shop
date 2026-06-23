@@ -19,6 +19,10 @@ const LikeProduct = ({ productId, likesCount, isLiked }) => {
       toast.error("وارد حساب کاربری خود شوید.");
       return;
     }
+    else if (!user?.name) {
+      toast.error("اطلاعات خود را تکمیل کنید.");
+      return;
+    }
     setIsLoading(true);
     try {
       const { data } = await api.post(`/product/like/${productId}`);

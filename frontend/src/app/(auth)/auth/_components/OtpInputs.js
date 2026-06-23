@@ -11,6 +11,7 @@ const OtpInputs = ({ otp, setOtp }) => {
 
   const handleChange = (e, index) => {
     const value = e.target.value;
+    if (!Number(value)) return;
     if (value.length == 1) {
       const updatedOtp = [...otp];
       updatedOtp[index] = value;

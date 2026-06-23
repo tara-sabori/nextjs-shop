@@ -4,25 +4,25 @@ const categories = [
   {
     id: 1,
     name: "الکترونیک",
-    slug: "electronics",
+    cat: "electronics",
     image: "/images/category/electronics.jpg",
   },
   {
     id: 2,
     name: "پوشاک مردانه",
-    slug: "men-clothing",
+    cat: "men-clothes",
     image: "/images/category/men.jpg",
   },
   {
     id: 3,
     name: "پوشاک زنانه",
-    slug: "women-clothing",
+    cat: "women-clothes",
     image: "/images/category/women.jpg",
   },
   {
     id: 4,
     name: "آرایشی",
-    slug: "beauty",
+    cat: "beauty",
     image: "/images/category/beauty.jpg",
   },
 ];
@@ -49,7 +49,8 @@ export default function PopularCategories() {
           {categories.map((category) => (
             <Link
               key={category.id}
-              href={`/product/category/${category.slug}`}
+              href={`/product/category/${category?.cat}?page=1`}
+              // href={`/product/category/women-clothes?page=1`}
               className="group relative block aspect-4/5 overflow-hidden rounded-2xl shadow-lg transition-all duration-500 hover:-translate-y-2"
             >
               {/* تصویر پس‌زمینه */}

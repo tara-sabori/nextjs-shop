@@ -3,6 +3,7 @@ import api from "@/services/api";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import CategoryForm from "../../../_components/CategoryForm";
+import MyLoading from "@/components/MyLoading";
 
 const EditCategoryPage = () => {
   const { id } = useParams();
@@ -24,7 +25,7 @@ const EditCategoryPage = () => {
     getCategory();
   }, [id]);
   return isLoading ? (
-    <p>loading...</p>
+    <MyLoading />
   ) : !category ? (
     <p>دسته‌بندی موردنظر یافت نشد.</p>
   ) : (

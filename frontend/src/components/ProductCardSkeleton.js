@@ -1,6 +1,6 @@
 const ProductCardSkeleton = () => {
   return (
-    <section className="w-[250px] lg:w-[200px] space-y-3 rounded-lg bg-secondary-50 shadow-md overflow-hidden animate-pulse">
+    <section className="w-[250px] lg:w-[200px] space-y-3 rounded-2xl bg-secondary-50 shadow-md overflow-hidden animate-pulse">
       {/* بخش تصویر و لایک */}
       <div className="w-full h-37.5 bg-secondary-200 relative"></div>
 

@@ -1,3 +1,4 @@
+import { toPersianNumbers, toPersianNumbersWithComma } from "@/utils/toPersianNumbers";
 import Link from "next/link";
 import React from "react";
 import { HiEye, HiTrash } from "react-icons/hi";
@@ -6,13 +7,13 @@ import { RiEdit2Line } from "react-icons/ri";
 const ProductRow = ({ product, index, deleteProduct, isDeleting }) => {
   return (
     <tr>
-      <td className="table__td">{index + 1}</td>
+      <td className="table__td">{toPersianNumbers(index)}</td>
       <td className="table__td  whitespace-nowrap">{product.title}</td>
       <td className="table__td">{product.category.title}</td>
-      <td className="table__td">{product.price}</td>
-      <td className="table__td">{product.discount}</td>
-      <td className="table__td">{product.offPrice}</td>
-      <td className="table__td">{product.countInStock}</td>
+      <td className="table__td">{toPersianNumbersWithComma(product.price)} تومان</td>
+      <td className="table__td">{toPersianNumbersWithComma(product.discount)}</td>
+      <td className="table__td">{toPersianNumbersWithComma(product.offPrice)} تومان</td>
+      <td className="table__td">{toPersianNumbers(product.countInStock)}</td>
       <td className="table__td font-bold text-lg">
         <div className="flex items-center gap-x-4">
           {/* <Link href={`/admin/products/${product._id}`}>

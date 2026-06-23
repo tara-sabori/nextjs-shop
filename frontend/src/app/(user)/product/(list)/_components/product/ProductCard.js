@@ -9,9 +9,9 @@ import LikeProduct from "./LikeProduct";
 const ProductCard = ({ product }) => {
   // console.log(product);
   return (
-    <section className="w-[250px] lg:w-[200px] space-y-3 rounded-lg bg-secondary-50 shadow-md hover:scale-105 overflow-hidden border border-secondary-200/70">
+    <section className="w-[250px] lg:w-[200px] space-y-3 rounded-2xl bg-secondary-50 shadow-md hover:scale-105 overflow-hidden border border-secondary-200/70">
       {/* img and like*/}
-      <div className="w-full h-37.5 bg-secondary-100 relative">
+      <div className="w-full h-37.5 bg-white relative">
         {/* like button */}
         <LikeProduct
           likesCount={product?.likesCount}
@@ -20,11 +20,11 @@ const ProductCard = ({ product }) => {
         />
         <Image
           alt={product?.title}
-            src={product?.imageLink || "/images/not-found2.png"}
+          src={product?.imageLink || "/images/not-found2.png"}
           width={100}
           height={100}
           loading="eager"
-          className="w-full object-contain h-37.5"
+          className={`${product?.imageLink && "object-contain py-2"} w-full h-37.5`}
         />
         {product?.discount != 0 && (
           <div className="bg-rose-500 px-2 py-0.5 rounded-xl text-white text-xs absolute top-1 right-1">

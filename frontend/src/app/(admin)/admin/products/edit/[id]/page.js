@@ -3,6 +3,7 @@ import api from "@/services/api";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import ProductForm from "../../_components/ProductForm";
+import MyLoading from "@/components/MyLoading";
 
 const EditProductPage = () => {
   const { id } = useParams();
@@ -22,7 +23,7 @@ const EditProductPage = () => {
     getProductById();
   }, []);
   return isLoading ? (
-    <p>loading...</p>
+    <MyLoading />
   ) : !product ? (
     <p>دسته‌بندی موردنظر یافت نشد.</p>
   ) : (

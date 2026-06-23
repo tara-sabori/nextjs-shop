@@ -3,13 +3,41 @@ import useGetData from "@/hooks/useGetData";
 import Link from "next/link";
 import { PiPlus } from "react-icons/pi";
 import ProductsList from "./ProductsList";
+import { use, useEffect, useState } from "react";
+import api from "@/services/api";
+import { useSearchParams } from "next/navigation";
 
 const AdminProductsPage = () => {
-  const { loading, dataList, setDataList } = useGetData(
-    "/product/list",
-    "products",
-  );
-  console.log(dataList);
+  // const { loading, dataList, setDataList } = useGetData(
+  //   "/product/list",
+  //   "products",
+  // );
+  const params = useSearchParams();
+  const page = params?.get("page") || 1;
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    setLoading(true);
+  }, [page]);
+
+  useEffect(() => {
+    if (!loading) return;
+    const fetchData = async () => {
+      try {
+        const { data } = await api.get(`/product/list?page=${page}&limit=4`);
+        setData(data?.data);
+        console.log(data);
+      } catch (error) {
+        console.log(error?.response);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [page, loading]);
+  const products = data?.products || [];
+  const totalPages = data?.totalPages;
+  const currentPage = data?.page;
   return (
     <>
       <div className="flex items-center justify-between">
@@ -25,9 +53,11 @@ const AdminProductsPage = () => {
         </Link>
       </div>
       <ProductsList
-        products={dataList}
-        setProducts={setDataList}
+        products={products}
+        totalPages={totalPages}
+        setLoading={setLoading}
         isLoading={loading}
+        currentPage={currentPage}
       />
     </>
   );

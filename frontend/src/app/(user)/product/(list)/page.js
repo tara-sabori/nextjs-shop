@@ -12,34 +12,34 @@ export default async function ProductPage({ searchParams }) {
   const params = (await searchParams) || {};
   const query = new URLSearchParams(params);
   const queryString = query.toString();
-  const { data } = await api.get(`/product/list?${queryString}`, {
+  const { data } = await api.get(`/product/list?${queryString}&limit=8`, {
     headers: {
       Cookie: strCookies,
     },
   });
   console.log(data?.data);
   const { products } = data?.data || [];
-  const totalPages = data?.data?.totalPages || 1;
+  const totalPages = data?.data?.totalPages || 0;
   console.log(products);
   return (
     <div className="space-y-4">
       <div className="min-h-[80vh]">
         <div className="flex items-stretch justify-center lg:justify-start gap-4 flex-wrap">
-        {products?.length < 1 ? (
-          <div className="w-full py-10 text-center text-secondary-600">
-            محصولی یافت نشد
-          </div>
-        ) : (
-          products?.map((product) => (
-            <ProductCard key={product?._id} product={product} />
-          ))
-        )}
-      </div>
+          {products?.length < 1 ? (
+            <div className="w-full py-10 text-center text-secondary-600">
+              محصولی یافت نشد
+            </div>
+          ) : (
+            products?.map((product) => (
+              <ProductCard key={product?._id} product={product} />
+            ))
+          )}
+        </div>
       </div>
       {/* paginate */}
       <div className="flex justify-center lg:justify-start">
-        <Paginate pageCount={totalPages} />
-        </div>
+        {totalPages > 0 && <Paginate pageCount={totalPages} />}
+      </div>
     </div>
   );
 }

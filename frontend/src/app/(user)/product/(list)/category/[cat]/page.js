@@ -6,6 +6,8 @@ import { cookies } from "next/headers";
 import { toStringCookies } from "@/utils/toStringCookies";
 import Paginate from "@/components/Paginate";
 
+export const dynamic = "force-dynamic";
+
 export default async function ProductByCategoryPage({ params, searchParams }) {
   const { cat } = await params;
   const cookieStore = await cookies();
@@ -13,16 +15,24 @@ export default async function ProductByCategoryPage({ params, searchParams }) {
   const searchParamsObj = (await searchParams) || {};
   const query = new URLSearchParams(searchParamsObj);
   const queryString = query.toString();
-  const { data } = await api.get(
-    `/product/list?category=${cat}&${queryString}`,
-    {
-      headers: {
-        Cookie: strCookies,
+  let products = [];
+  let totalPages = 0;
+  try {
+    const { data } = await api.get(
+      `/product/list?category=${cat}&${queryString}`,
+      {
+        headers: {
+          Cookie: strCookies,
+        },
       },
-    },
-  );
-  const { products } = data?.data || [];
-  const totalPages = data?.data?.totalPages || 1;
+    );
+    products = data?.data?.products || [];
+    totalPages = data?.data?.totalPages || 0;
+  } catch (error) {
+    console.log(error?.response);
+    products = [];
+    totalPages = 0;
+  }
   return (
     <div className="space-y-4">
       <div className="min-h-[80vh]">
@@ -39,7 +49,7 @@ export default async function ProductByCategoryPage({ params, searchParams }) {
         </div>
       </div>
       <div className="flex justify-center lg:justify-start">
-        <Paginate pageCount={totalPages} />
+        {totalPages > 0 && <Paginate pageCount={totalPages} />}
       </div>
     </div>
   );

@@ -54,6 +54,14 @@ const CategoryForm = ({ category = {} }) => {
         required
         validationSchema={{
           required: "این فیلد الزامی است.",
+          pattern: {
+            value: /^[آاآبپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی\u06F0-\u06F9\s]+$/,
+            message: "فقط حروف فارسی مجاز است.",
+          },
+          minLength: {
+            value: 3,
+            message: "باید بیشتر از دو کاراکتر باشد.",
+          },
         }}
         errors={errors}
       />
@@ -64,6 +72,10 @@ const CategoryForm = ({ category = {} }) => {
         required
         validationSchema={{
           required: "این فیلد الزامی است.",
+          pattern: {
+            value: /^[A-Za-z]+(?:-[A-Za-z]+)*$/,
+            message: "فقظ حروف انگلیسی و - بین کلمات مجاز است.",
+          },
         }}
         errors={errors}
       />

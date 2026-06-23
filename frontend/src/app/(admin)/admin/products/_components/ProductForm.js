@@ -32,8 +32,15 @@ const ProductForm = ({ product = {} }) => {
       imageLink: product?.imageLink || "",
     },
   });
+  const calculateDiscount = (discount, price) => {
+    const newPrice = price - (price * discount) / 100;
+    return newPrice;
+  };
   const onSubmit = async (myData) => {
-    const formData = { ...myData };
+    const offPrice = myData?.discount
+      ? calculateDiscount(myData?.discount, myData.price)
+      : myData?.price;
+    const formData = { ...myData, offPrice };
     console.log(formData);
     try {
       let res;
@@ -120,14 +127,14 @@ const ProductForm = ({ product = {} }) => {
         inputMode="numeric"
         min={0}
       />
-      <TextField
+      {/* <TextField
         name={"offPrice"}
         label={"قیمت روی تخفیف"}
         register={register}
         type="number"
         inputMode="numeric"
         min={0}
-      />
+      /> */}
       <TextField
         name={"countInStock"}
         label={"موجودی"}

@@ -3,6 +3,8 @@ import { useState } from "react";
 import ProductRow from "./ProductRow";
 import toast from "react-hot-toast";
 import api from "@/services/api";
+import Paginate from "@/components/Paginate";
+import { useHandleParams } from "@/utils/HandleParams";
 
 export const productListTableTHeads = [
   {
@@ -39,12 +41,22 @@ export const productListTableTHeads = [
   },
 ];
 
-const ProductsList = ({ products, setProducts, isLoading }) => {
+const ProductsList = ({
+  products,
+  totalPages,
+  setLoading,
+  isLoading,
+  currentPage,
+}) => {
   const [isDeleting, setIsDeleting] = useState(false);
+  const handleParams = useHandleParams();
   const deleteProduct = async (id) => {
     try {
       const { data } = await api.delete(`/admin/product/remove/${id}`);
-      setProducts(products?.filter((p) => p?._id !== id));
+      if (products?.length === 1 && currentPage !== 1) {
+        handleParams("page", currentPage - 1);
+      }
+      setLoading(true);
       toast.success(data?.data?.message);
     } catch (error) {
       console.log(error);
@@ -53,47 +65,51 @@ const ProductsList = ({ products, setProducts, isLoading }) => {
       setIsDeleting(false);
     }
   };
+
   return (
-    <div className="overflow-x-auto shadow-sm overflow-y-hidden my-8">
-      <table className="border-collapse table-auto w-full min-w-200 text-sm">
-        <thead>
-          <tr>
-            {productListTableTHeads.map((item) => {
-              return (
-                <th className="whitespace-nowrap table__th" key={item.id}>
-                  {item.label}
-                </th>
-              );
-            })}
-          </tr>
-        </thead>
-        <tbody>
-          {isLoading ? (
+    <>
+      <div className="overflow-x-auto shadow-sm overflow-y-hidden my-8">
+        <table className="border-collapse table-auto w-full min-w-200 text-sm">
+          <thead>
             <tr>
-              <td colSpan={8} className="text-center p-5">
-                <span>در حال بارگذاری...</span>
-              </td>
+              {productListTableTHeads.map((item) => {
+                return (
+                  <th className="whitespace-nowrap table__th" key={item.id}>
+                    {item.label}
+                  </th>
+                );
+              })}
             </tr>
-          ) : products?.length < 1 ? (
-            <tr>
-              <td colSpan={8} className="text-center p-5">
-                <span>موردی یافت نشد</span>
-              </td>
-            </tr>
-          ) : (
-            products?.map((product, index) => (
-              <ProductRow
-                key={product._id}
-                product={product}
-                index={index}
-                isDeleting={isDeleting}
-                deleteProduct={deleteProduct}
-              />
-            ))
-          )}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {isLoading ? (
+              <tr>
+                <td colSpan={8} className="text-center p-5 py-20">
+                  <span>در حال بارگذاری...</span>
+                </td>
+              </tr>
+            ) : products?.length < 1 ? (
+              <tr>
+                <td colSpan={8} className="text-center p-5 py-20">
+                  <span>موردی یافت نشد</span>
+                </td>
+              </tr>
+            ) : (
+              products?.map((product, index) => (
+                <ProductRow
+                  key={product._id}
+                  product={product}
+                  index={(currentPage - 1) * 4 + index + 1}
+                  isDeleting={isDeleting}
+                  deleteProduct={deleteProduct}
+                />
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
+      {!isLoading && <Paginate pageCount={totalPages} />}
+    </>
   );
 };
 

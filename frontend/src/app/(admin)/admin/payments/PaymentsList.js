@@ -61,13 +61,13 @@ const PaymentsList = ({ payments, isLoading }) => {
           <tbody>
             {isLoading ? (
               <tr>
-                <td colSpan={8} className="text-center p-5">
+                <td colSpan={8} className="text-center p-5 py-20">
                   <span>در حال بارگذاری...</span>
                 </td>
               </tr>
             ) : records?.length < 1 ? (
               <tr>
-                <td colSpan={8} className="text-center p-5">
+                <td colSpan={8} className="text-center p-5 py-20">
                   <span>موردی یافت نشد</span>
                 </td>
               </tr>

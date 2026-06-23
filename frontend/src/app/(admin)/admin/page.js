@@ -37,7 +37,7 @@ const AdminPage = () => {
         <InfoCard
           icon={<PiBasket />}
           title={"محصولات"}
-          value={toPersianNumbers(dashboardData?.categories || 0)}
+          value={toPersianNumbers(dashboardData?.products || 0)}
           className={"bg-primary-100 border-r-8 border-primary-800"}
         />
         <InfoCard
@@ -49,7 +49,7 @@ const AdminPage = () => {
         <InfoCard
           icon={<PiUsersFour />}
           title={"کاربران"}
-          value={toPersianNumbers(dashboardData?.categories || 0)}
+          value={toPersianNumbers(dashboardData?.users || 0)}
           className={"bg-purple-100 border-r-8 border-purple-800"}
         />
       </div>

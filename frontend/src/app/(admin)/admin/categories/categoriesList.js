@@ -3,8 +3,8 @@ import { useState } from "react";
 import CategoryRow from "./CategoryRow";
 import api from "@/services/api";
 import toast from "react-hot-toast";
-import Paginate from "@/components/Paginate";
-import { useSearchParams } from "next/navigation";
+// import Paginate from "@/components/Paginate";
+// import { useSearchParams } from "next/navigation";
 import { useHandleParams } from "@/utils/HandleParams";
 
 export const categoryListTableTHeads = [
@@ -35,12 +35,13 @@ export const categoryListTableTHeads = [
 ];
 
 const CategoriesList = ({ categories, isLoading, setCategories }) => {
-  const params = useSearchParams();
-  const page = params.get("page") || 1;
-  const lastIndex = page * 4;
-  const firstIndex = lastIndex - 4;
-  const records = categories?.slice(firstIndex, lastIndex);
-  const pageCount = Math.ceil(categories?.length / 4);
+  // const params = useSearchParams();
+  // const page = params.get("page") || 1;
+  // const lastIndex = page * 4;
+  // const firstIndex = lastIndex - 4;
+  // const records = categories?.slice(firstIndex, lastIndex);
+  const records = categories;
+  // const pageCount = Math.ceil(categories?.length / 4);
 
   const [isDeleting, setIsDeleting] = useState(false);
   const handleParams = useHandleParams();
@@ -48,9 +49,9 @@ const CategoriesList = ({ categories, isLoading, setCategories }) => {
     try {
       const { data } = await api.delete(`/admin/category/remove/${id}`);
       setCategories(categories?.filter((cat) => cat?._id !== id));
-      if (records?.length === 1 && page > 1) {
-        handleParams("page", page - 1);
-      }
+      // if (records?.length === 1 && page > 1) {
+      //   handleParams("page", page - 1);
+      // }
       toast.success(data?.data?.message);
     } catch (error) {
       console.log(error?.response);
@@ -101,7 +102,7 @@ const CategoriesList = ({ categories, isLoading, setCategories }) => {
           </tbody>
         </table>
       </div>
-      {!isLoading && <Paginate pageCount={pageCount} isClient={true} />}
+      {/* {!isLoading && <Paginate pageCount={pageCount} isClient={true} />} */}
     </>
   );
 };

@@ -5,7 +5,7 @@ import api from "@/services/api";
 import toast from "react-hot-toast";
 // import Paginate from "@/components/Paginate";
 // import { useSearchParams } from "next/navigation";
-import { useHandleParams } from "@/utils/HandleParams";
+// import { useHandleParams } from "@/utils/HandleParams";
 
 export const categoryListTableTHeads = [
   {
@@ -44,7 +44,7 @@ const CategoriesList = ({ categories, isLoading, setCategories }) => {
   // const pageCount = Math.ceil(categories?.length / 4);
 
   const [isDeleting, setIsDeleting] = useState(false);
-  const handleParams = useHandleParams();
+  // const handleParams = useHandleParams();
   const deleteCategory = async (id) => {
     try {
       const { data } = await api.delete(`/admin/category/remove/${id}`);

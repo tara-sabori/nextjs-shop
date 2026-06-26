@@ -1,3 +1,4 @@
+"use client"
 import InfoCard from "@/components/InfoCard";
 import { useAuth } from "@/context/AuthContext";
 import { toPersianNumbers } from "@/utils/toPersianNumbers";

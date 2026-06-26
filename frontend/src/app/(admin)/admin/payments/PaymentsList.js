@@ -1,3 +1,4 @@
+"use client"
 import { useSearchParams } from "next/navigation";
 import PaymentRow from "./PaymentRow";
 import Paginate from "@/components/Paginate";

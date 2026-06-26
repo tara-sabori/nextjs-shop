@@ -35,7 +35,8 @@ export const categoryListTableTHeads = [
 ];
 
 const CategoriesList = ({ categories, isLoading, setCategories }) => {
-  const page = useSearchParams().get("page") || 1;
+  const params = useSearchParams();
+  const page = params.get("page") || 1;
   const lastIndex = page * 4;
   const firstIndex = lastIndex - 4;
   const records = categories?.slice(firstIndex, lastIndex);

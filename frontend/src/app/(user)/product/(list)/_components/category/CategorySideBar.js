@@ -1,7 +1,5 @@
 import api from "@/services/api";
-import { Suspense } from "react";
-import CategoryLoading from "./CategoryLoading";
-import CategoryList from "./CategoryList";
+import Categorywrapper from "./Categorywrapper";
 
 export default async function CategorySideBar() {
   const { data } = await api.get("/category/list");
@@ -12,9 +10,7 @@ export default async function CategorySideBar() {
       <h3 className="text-sm font-semibold whitespace-nowrap mb-4">
         <span className="mygradient">دسته‌بندی‌ها</span>
       </h3>
-      <Suspense fallback={<CategoryLoading />}>
-        <CategoryList categories={categories} />
-      </Suspense>
+      <Categorywrapper categories={categories} />
     </div>
   );
 }

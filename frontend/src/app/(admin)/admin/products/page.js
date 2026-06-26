@@ -3,11 +3,11 @@ import useGetData from "@/hooks/useGetData";
 import Link from "next/link";
 import { PiPlus } from "react-icons/pi";
 import ProductsList from "./ProductsList";
-import { use, useEffect, useState } from "react";
+import { Suspense, use, useEffect, useState } from "react";
 import api from "@/services/api";
 import { useSearchParams } from "next/navigation";
 
-const AdminProductsPage = () => {
+const AdminProductsContent = () => {
   // const { loading, dataList, setDataList } = useGetData(
   //   "/product/list",
   //   "products",
@@ -63,4 +63,11 @@ const AdminProductsPage = () => {
   );
 };
 
+const AdminProductsPage = () => {
+  return (
+    <Suspense fallback={<div>loading...</div>}>
+      <AdminProductsContent />
+    </Suspense>
+  );
+};
 export default AdminProductsPage;

@@ -12,14 +12,30 @@ export default async function ProductPage({ searchParams }) {
   const params = (await searchParams) || {};
   const query = new URLSearchParams(params);
   const queryString = query.toString();
-  const { data } = await api.get(`/product/list?${queryString}&limit=8`, {
-    headers: {
-      Cookie: strCookies,
-    },
-  });
-  console.log(data?.data);
-  const { products } = data?.data || [];
-  const totalPages = data?.data?.totalPages || 0;
+  // const { data } = await api.get(`/product/list?${queryString}&limit=8`, {
+  //   headers: {
+  //     Cookie: strCookies,
+  //   },
+  // });
+  // console.log(data?.data);
+  // const { products } = data?.data || [];
+  // const totalPages = data?.data?.totalPages || 0;
+  let products = [];
+  let totalPages = 0;
+
+  try {
+    const { data } = await api.get(`/product/list?${queryString}&limit=8`, {
+      headers: {
+        Cookie: strCookies,
+      },
+    });
+    products = data?.data?.products || [];
+    totalPages = data?.data?.totalPages || 0;
+  } catch (error) {
+    products = [];
+    totalPages = 0;
+    console.log("ProductPage fetch error:", error?.message);
+  }
   console.log(products);
   return (
     <div className="space-y-4">
